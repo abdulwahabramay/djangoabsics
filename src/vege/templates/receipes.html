@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+
+<div style="margin-top: 20px;" class="container mt-5">
+    <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1>Add Receipe</h1>
+        <hr>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Receipe Name</label>
+            <input type="text" name="receipe_name" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Receipe Description</label>
+            <textarea class="form-control" name="receipe_description"></textarea>
+        </div>
+        <div class="mb-3">
+            <label class="form-check-label" for="exampleCheck1">Receipe Image</label>
+            <input type="file" name="receipe_image" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-success">Add Receipe</button>
+    </form>
+</div>
+
+<div style="margin-top: 20px;" class="container mt-5">
+  <form >
+      <div>
+          <label for="exampleInputEmail1" class="form-label">Search</label>
+          <input type="text" name="search" class="form-control">
+      </div>
+      <button class="mt-2" type="submit" class="btn btn-primary">Search</button>
+  </form>
+</div>
+
+<table border="1"  style="margin-top: 50px; border-collapse: collapse;" class="table table-striped container">
+    <thead>
+      <tr class="bg-warning">
+        <th class="bg-primary text-white" scope="col">No</th>
+        <th class="bg-primary text-white" scope="col">Name</th>
+        <th class="bg-primary text-white" scope="col">Description</th>
+        <th class="bg-primary text-white" scope="col">Image</th>
+        <th class="bg-primary text-white" scope="col">Delete</th>
+        <th class="bg-primary text-white" scope="col">Update</th>
+      </tr>
+    </thead>
+    {% for n in receipe_data %}
+    <tbody>
+      <tr >
+        <th class="bg-warning text-white" scope="row">{{forloop.counter}}</th>
+        <td class="bg-warning text-white">{{n.receipe_name}}</td>
+        <td class="bg-warning text-white">{{n.receipe_description}}</td>
+        <td class="bg-warning text-white"><img style="width: 100px; height: 100px;" src="/media/{{n.receipe_image}}"></td>
+        <td class="bg-warning "><a class="btn btn-danger text-white" href="/delete-receipe/{{n.id}}">Delete</a></td>
+        <td class="bg-warning "><a class="btn btn-success text-white" href="/update-receipe/{{n.id}}">Update</a></td>
+      </tr>
+     
+    </tbody>
+    {% endfor %}
+  </table>
+
+
+{% endblock %}
